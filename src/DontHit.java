@@ -1,19 +1,17 @@
 import GLOOP.*;
 public class DontHit {
-    GLQuader[] dontHit;
+    GLQuader dontHit;
     GLVektor vDontHit;
     private int Px;
     private double randNum;
     public void build(){
         vDontHit = new GLVektor(125, 10, 0);
-        dontHit = new GLQuader[]{new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200), new GLQuader(vDontHit, 150, 20, 200)};
-        for(int i = 0; i < dontHit.length; i++){
-            spawnDontHit(i, randPx(), Math.random() * -5000 + 2500);
-        }
+        dontHit = new GLQuader(vDontHit, 150, 20, 200);
+        spawnDontHit(randPx(), Math.random() * -5000 + 2500);
     }
-    private void spawnDontHit(int i, double Px, double Pz){
-        dontHit[i].setzePosition(Px, 10, Pz);
-        dontHit[i].setzeFarbe(1, 0, 0);
+    private void spawnDontHit(double Px, double Pz){
+        dontHit.setzePosition(Px, 10, Pz);
+        dontHit.setzeFarbe(1, 0, 0);
     }
     private int randPx(){
         randNum = Math.random() - 0.5;
@@ -32,11 +30,19 @@ public class DontHit {
         return Px;
     }
     public void go(double speed){
-        for(int i = 0; i < dontHit.length; i++){
-            dontHit[i].verschiebe(0, 0, 1 * speed);
-            if(dontHit[i].gibZ() >= 2500){
-                dontHit[i].setzePosition(randPx(), 10, -2500);
-            }
+
+        dontHit.verschiebe(0, 0, 1 * speed);
+        if(dontHit.gibZ() >= 2500){
+            dontHit.setzePosition(randPx(), 10, -2500);
         }
+    }
+    public double getX(){
+        return dontHit.gibX();
+    }
+    public double getY(){
+        return dontHit.gibY();
+    }
+    public double getZ(){
+        return dontHit.gibZ();
     }
 }

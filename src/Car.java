@@ -20,4 +20,7 @@ public class Car {
     public double getZ(){
         return car.gibX();
     }
+    public GLVektor getvCarPos(){
+        return vCarPos;
+    }
 }

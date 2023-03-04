@@ -4,16 +4,16 @@ public class Game {
     Timer timer;
     DontHit[] dontHit;
     Car car;
+    double carWith = 80;
+    double carLength = 80;
     GLTastatur kb;
     GLVektor vCamPos, vCarPos, vCamLookAt;
     double carSpeed = 3;
     public void run(){
         dontHit = new DontHit[]{new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit(), new DontHit()};
-
         for(int i = 0; i < dontHit.length; i++){
             dontHit[i].build();
         }
-
         timer = new Timer();
         timer.build(0, 500, 0);
         kb = new GLTastatur();
@@ -21,9 +21,9 @@ public class Game {
         scene.build();
         car = new Car();
         vCarPos = new GLVektor(0, 10, 1000);
-        car.build(vCarPos);
-        vCamPos = new GLVektor(car.getX(), 500, 2000);
-        vCamLookAt = new GLVektor(vCarPos);
+        car.build(vCarPos, carWith, carLength);
+        vCamPos = new GLVektor(car.getX() + 180, 2000, 1000);
+        vCamLookAt = new GLVektor(car.getX(), car.getY() + 500, car.getZ() - 2000);
 
         this.mainGameLoop();
 
@@ -43,17 +43,17 @@ public class Game {
         }
     }
     private GLVektor vCarPosUpdate(){
-        if(kb.rechts() && car.getX() < 475){
+        if(kb.rechts() && car.getX() < 500 - carWith){
             vCarPos.x = vCarPos.x + 1 * carSpeed;
         }
-        if(kb.rechts() && car.getX() >= 475){
-            vCarPos.x = 475;
+        if(kb.rechts() && car.getX() >= 500 - carWith){
+            vCarPos.x = 500 - carWith;
         }
-        if(kb.links() && car.getX() >= -475){
+        if(kb.links() && car.getX() >= -500 + carWith){
             vCarPos.x = vCarPos.x - 1 * carSpeed;
         }
-        if(kb.links() && car.getX() <= -475){
-            vCarPos.x = -475;
+        if(kb.links() && car.getX() <= -500 + carWith){
+            vCarPos.x = -500 + carWith;
         }
         return vCarPos;
     }
@@ -62,15 +62,20 @@ public class Game {
         return vCamPos;
     }
     private GLVektor vCamLookAtUpdate(){
-        vCamLookAt = vCarPos;
+        vCamLookAt.x = car.getX();
+        vCamLookAt.z = car.getZ();
         return vCamLookAt;
     }
     private void colisionDetection(){
         for(int i = 0; i < dontHit.length; i++){
-            if((((car.getX() + 25 >= dontHit[i].getX() + 75) && (car.getX() - 25 <= dontHit[i].getX() + 75)) || ((car.getX() + 25 >= dontHit[i].getX() - 75) && (car.getX() - 25 <= dontHit[i].getX() - 75))) && (((car.getZ() + 60 >= dontHit[i].getZ() + 100) && (car.getZ() - 60 <= dontHit[i].getZ() + 100)) || ((car.getZ() + 60 >= dontHit[i].getZ() - 100) && (car.getZ() - 60 <= dontHit[i].getZ() - 100)))){
-                System.out.println("hit");
+            if(Math.sqrt(Math.pow(dontHit[i].getX() - car.getX(), 2) + Math.pow(dontHit[i].getZ() - car.getZ(), 2)) < carWith + 75 && (dontHit[i].getZ() - car.getZ() < carLength + 100)){
+                System.out.println("hit" + Math.sqrt(Math.pow(dontHit[i].getX() - car.getX(), 2) + Math.pow(dontHit[i].getZ() - car.getZ(), 2)));
+                System.out.println(car.getZ() + "   " + dontHit[i].getZ());
+                dontHit[i].changeColor(0, 0, 1);
+                //Sys.warte(1000);
+
             }
+            System.out.println(Math.sqrt(Math.pow(dontHit[i].getX() - car.getX(), 2) + Math.pow(dontHit[i].getZ() - car.getZ(), 2)));
         }
     }
-
 }

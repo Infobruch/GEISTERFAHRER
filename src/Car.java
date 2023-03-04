@@ -1,10 +1,14 @@
 import GLOOP.*;
+
+import java.io.File;
+
 public class Car {
-    GLQuader car;
+    Model car;
     GLVektor vCarPos;
-    public void build(GLVektor vNewCarpos){
+    public void build(GLVektor vNewCarpos, double carWith, double carLength){
         vCarPos = new GLVektor(vNewCarpos);
-        car = new GLQuader(vCarPos, 50, 20, 120);
+        car = new Model(vCarPos.x, vCarPos.y, vCarPos.z, carWith, 1, carLength, new File("src/AUTO.stl"));
+        car.skaliere(80);
         car.setzeFarbe(1, 1, 1);
     }
     public void updateVCarPos(GLVektor vNewCarPos){
@@ -15,10 +19,10 @@ public class Car {
         return car.gibX();
     }
     public double getY(){
-        return car.gibX();
+        return car.gibY();
     }
     public double getZ(){
-        return car.gibX();
+        return car.gibZ();
     }
     public GLVektor getvCarPos(){
         return vCarPos;

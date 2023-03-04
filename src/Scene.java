@@ -8,8 +8,8 @@ public class Scene {
     double guideLineZpos = -2500;
     public void build(){
         cam = new GLEntwicklerkamera(1200, 1440);
-        cam.setzePosition(0, 750, 2000);
-        cam.setzeBlickpunkt(0, 100, 0);
+        cam.setzePosition(0, 2000, 1000);
+        cam.setzeBlickpunkt(0, 200, -2000);
         light = new GLLicht();
         road = new GLTafel(0, 0, 0, 1000, 5000);
         road.drehe(90, 0, 0);

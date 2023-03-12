@@ -1,15 +1,12 @@
-import GLOOP.*;
-
-import java.io.File;
+import GLOOP.GLQuader;
+import GLOOP.GLVektor;
 
 public class Car {
-    Model car;
     GLVektor vCarPos;
-    public void build(GLVektor vNewCarpos, double carWith, double carLength){
+    GLQuader car;
+    public void load(GLVektor vNewCarpos, double carWith, double carLength){
         vCarPos = new GLVektor(vNewCarpos);
-        car = new Model(vCarPos.x, vCarPos.y, vCarPos.z, carWith, 1, carLength, new File("src/AUTO.stl"));
-        car.skaliere(80);
-        car.setzeFarbe(1, 1, 1);
+        car = new GLQuader(vCarPos.x, vCarPos.y + 5, vCarPos.z, carWith, 10, carLength);
     }
     public void updateVCarPos(GLVektor vNewCarPos){
         vCarPos = vNewCarPos;

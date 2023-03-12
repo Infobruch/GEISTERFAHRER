@@ -4,7 +4,7 @@ public class Timer {
     GLTafel timer;
     double time = 0, deltaTime = 0;
 
-    public void build(double pX, double pY, double pZ){
+    public void load(double pX, double pY, double pZ){
         timer = new GLTafel(pX, pY, pZ, 50, 50);
         timer.setzeFarbe(0, 0, 0);
         timer.setzeTextfarbe(1, 1, 1);

@@ -1,4 +1,6 @@
-import GLOOP.*;
+import GLOOP.GLQuader;
+import GLOOP.GLVektor;
+
 public class DontHit {
     GLQuader dontHit;
     GLVektor vDontHit;
@@ -33,12 +35,8 @@ public class DontHit {
 
         dontHit.verschiebe(0, 0, 1 * speed);
         if(dontHit.gibZ() >= 2500){
-            this.changeColor(1, 0, 0);
             dontHit.setzePosition(randPx(), 10, -2500);
         }
-    }
-    public void changeColor(double pR, double pG, double pB){
-        dontHit.setzeFarbe(pR, pG, pB);
     }
     public double getX(){
         return dontHit.gibX();
